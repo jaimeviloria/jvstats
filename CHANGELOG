@@ -3,6 +3,9 @@
 ## [Unreleased]
 - statistics for average, max, min, median, standard deviation, skew
 
+## [0.1.1]
+- removed extra test csvs from data directory
+
 ## [0.1.0]
 - added median statistic for delays
 - added cli for jvstats

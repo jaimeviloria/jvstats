@@ -1,5 +1,7 @@
 # jvstats, a commandline tool for retrieving stats
 
+https://api.travis-ci.com/jaimeviloria/jvstats.svg
+
 ## Requirements
 * make
 * python3
