@@ -61,6 +61,8 @@ class Delays:
       self.__delays.append(delay)
     elif all(isinstance(x,int) for x in delay):
       self.__delays+=delay
+    else:
+      raise TypeError("delay must be an integer or array of integers")
 
     # set the new sliding window for stats
     self.__sliding_window = self.getSlidingWindow(self.delays,self.width,0)

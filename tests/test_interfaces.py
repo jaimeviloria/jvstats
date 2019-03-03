@@ -3,7 +3,6 @@ from pytest_mock import mocker
 from getstats import Delays
 import os
 
-
 # delays1 are the delays to add iteratively
 # consequently all_delays1, sliding_windows1 and outputs1 are the expected delays, current window and median output respectively
 
@@ -22,15 +21,33 @@ sliding_windows2=[[100],[110, 120, 115]]
 outputs2=[-1,101,101,102,110,115]
 
 # test for adding strings
-delays2=[100,'a']
-all_delays2=[[100],[100]]
-sliding_windows2=[[100],[100]]
-outputs2=[-1,-1]
+delays3=[100,'a']
+all_delays3=[[100],[100]]
+sliding_windows3=[[100],[100]]
+outputs3=[-1,-1]
+
+# Test for setting delays directly
+@pytest.mark.parametrize('delays,expected,outputs',[
+  (100,[100],[-1]),
+  ([100,102,101],[100, 102, 101],[-1,101,101]),
+])
+def test_set_delay(delays,expected,outputs):
+  d = Delays([],3)
+  
+  # if delays is neither an integer or a list of integers then raise an error
+  if (isinstance(delays,int) or all(isinstance(x,int) for x in delays)):
+    d.delays=delays
+  else:
+    with pytest.raises(TypeError):
+      d.delays=delays
+
+  assert d.delays == expected
 
 # Testing the addition of delays
 @pytest.mark.parametrize('delays,all_delays',[
   (delays1,all_delays1),
   (delays2,all_delays2),
+  (delays3,all_delays3),
 ])
 def test_getstats_addDelay(delays,all_delays):
 
@@ -39,15 +56,34 @@ def test_getstats_addDelay(delays,all_delays):
   # here we iterate over each element in the delays and then check if the corresponding list of delays is as expected
   for i,delay in enumerate(delays):
 
-    # addDelay the delay
-    d.addDelay(delay)
+
+    # if delay is neither an integer or an array of integers, we expect a TypeError
+    if (isinstance(delay,int) or (all(isinstance(x,int) for x in delay))):
+      d.addDelay(delay)
+    else:
+      with pytest.raises(TypeError):
+        d.addDelay(delay)
 
     # check that the list of delays is as expected
     assert d.delays == all_delays[i]
 
+
+# testing the variable width of the window
+@pytest.mark.parametrize('width',[(3),('a')])
+def test_getstats_delay_width(width):
+
+  # if width is not an integer then we should expect a TypeError exception
+  if not isinstance(width,int):
+    with pytest.raises(TypeError):
+      d=Delays([],width)
+  else:
+    d=Delays([],width)
+
+# testing that we get the expected sliding windows on addition of each delay
 @pytest.mark.parametrize('delays,sliding_windows',[
   (delays1,sliding_windows1),
-  (delays2,sliding_windows2)
+  (delays2,sliding_windows2),
+  (delays3,sliding_windows3),
 ])
 def test_getstats_sliding_window(delays,sliding_windows):
 
@@ -57,7 +93,13 @@ def test_getstats_sliding_window(delays,sliding_windows):
   for i,delay in enumerate(delays):
     
     # addDelay the delay
-    d.addDelay(delay)
+    # if delay is neither an integer or an array of integers, we expect a TypeError
+    if (isinstance(delay,int) or (all(isinstance(x,int) for x in delay))):
+      d.addDelay(delay)
+    else:
+      with pytest.raises(TypeError):
+        d.addDelay(delay)
+
 
     # check that the sliding window is as expected
     assert d.sliding_window == sliding_windows[i]
@@ -65,6 +107,7 @@ def test_getstats_sliding_window(delays,sliding_windows):
 @pytest.mark.parametrize('sliding_windows,outputs',[
   (sliding_windows1,outputs1),
   (sliding_windows2,outputs2),
+  (sliding_windows3,outputs3),
 ])
 def test_getstats_getMedian(mocker,sliding_windows,outputs):
 
