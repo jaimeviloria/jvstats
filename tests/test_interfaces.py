@@ -3,17 +3,21 @@ from pytest_mock import mocker
 from getstats import Delays
 import os
 
-delays1=[100,102,101,112,115]
-all_delays1=[[100],[100,102],[100,102,101],[100,102,101,112],[100,102,101,112,115]]
-sliding_windows1=[[100],[100,102],[100,102,101],[102,101,110],[110,120,115]]
+
+# delays1 are the delays to add iteratively
+# consequently all_delays1, sliding_windows1 and outputs1 are the expected delays, current window and median output respectively
+delays1=[100, 102, 101, 110, 120, 115]
+all_delays1=[[100],[100,102],[100,102,101], [100,102,101,110],[100,102,101,110,120], [100,102,101,110,120,115]]
+sliding_windows1=[[100],[100,102],[100, 102, 101],[102, 101, 110],[101, 110, 120],[110, 120, 115]]
 outputs1=[-1,101,101,102,110,115]
 
+# Testing the addition of delays
 @pytest.mark.parametrize('delays,all_delays',[
   (delays1,all_delays1),
 ])
 def test_getstats_addDelay(delays,all_delays):
 
-  d = Delays()
+  d = Delays([],3)
 
   # here we iterate over each element in the delays and then check if the corresponding list of delays is as expected
   for i,delay in enumerate(delays):
@@ -29,7 +33,7 @@ def test_getstats_addDelay(delays,all_delays):
 ])
 def test_getstats_sliding_window(delays,sliding_windows):
 
-  d = Delays()
+  d = Delays([],3)
   
   # here we iterate over each element in the delays and then check if the sliding window is as expected
   for i,delay in enumerate(delays):
@@ -45,7 +49,7 @@ def test_getstats_sliding_window(delays,sliding_windows):
 ])
 def test_getstats_getMedian(mocker,sliding_windows,outputs):
 
-  d = Delays()
+  d = Delays([],3)
 
   # we are not interested in whether sliding_window is properly functioning
   # only that it is of the value that we want to test
