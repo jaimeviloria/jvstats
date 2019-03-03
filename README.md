@@ -21,6 +21,34 @@ This creates virtualenv in the Makefile directory
 
 ## Usage: 
 
+Example
+`
+>>> from getstats import Delays
+>>> d = Delays()
+>>> d.delays
+[]
+>>> d.addDelay(100)
+[100]
+>>> d.medians
+[-1]
+>>> d.sliding_window
+[100]
+>>> d.addDelay(102)
+[100, 102]
+>>> d.medians
+[-1, 101]
+>>> d.sliding_window
+[100, 102]
+>>> d.addDelay([101,110,120])
+[100, 102, 101, 110, 120]
+>>> d.sliding_window
+[101, 110, 120]
+>>> d.medians
+[-1, 101, 101, 102, 110]
+>>> d.delays=[100,102]
+>>> d.medians
+[-1, 101]
+`
 
 ### Testing
 
