@@ -1,6 +1,6 @@
 # jvstats, a commandline tool for retrieving stats
 
-[[https://api.travis-ci.com/jaimeviloria/jvstats.svg]]
+[![Build Status](https://travis-ci.com/jaimeviloria/jvstats.svg)](https://travis-ci.com/jaimeviloria/jvstats)
 [![PyPI version](https://badge.fury.io/py/jvstats.svg)](https://badge.fury.io/py/jvstats)
 
 ## Development Requirements
