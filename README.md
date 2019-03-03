@@ -1,4 +1,4 @@
-# getstats, a commandline tool for retrieving stats
+# jvstats, a commandline tool for retrieving stats
 
 ## Requirements
 * make
@@ -8,7 +8,7 @@
 ## Installation
 
 `sudo make install`
-Installs getstats
+Installs jvstats
 
 ## Quickstart using Virtualenv
 
@@ -23,7 +23,6 @@ This creates virtualenv in the Makefile directory
 
 Example
 `
->>> from getstats import Delays
 >>> d = Delays()
 >>> d.delays
 []

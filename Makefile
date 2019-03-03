@@ -1,5 +1,5 @@
-NAME = 'getstats'
-PACKAGE_NAME = 'getstats'
+NAME = 'jvstats'
+PACKAGE_NAME = 'jvstats'
 
 .PHONY: all
 all: build

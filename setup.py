@@ -8,14 +8,14 @@ with codecs_open('README.md', encoding='utf-8') as f:
 with codecs_open('VERSION', encoding='utf-8') as f:
     version = f.read()
 
-install_requires = []
+install_requires = ['click']
 tests_require = ['pytest','pytest-cov','pytest-console-scripts','pytest-mock']
 extras_require = {}
 setup_requires=['pytest-runner']
 
 entry_points={
  'console_scripts': [
-   'getstats=getstats.console:cli'
+   'jvstats=jvstats.console:cli'
  ]
 }
 
@@ -23,10 +23,10 @@ datadir = os.path.join('data')
 datafiles = [(d, [os.path.join(d,f) for f in files])
     for d, folders, files in os.walk(datadir)]
 
-setup(name='getstats',
+setup(name='jvstats',
       packages=find_packages(),
       package_data={
-        "getstats": []
+        "jvstats": []
       },
       data_files = datafiles,
       version=version,

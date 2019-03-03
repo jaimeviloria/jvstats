@@ -1,6 +1,6 @@
 import pytest
 from pytest_mock import mocker
-from getstats import Delays
+from jvstats import Delays
 import os
 
 # delays1 are the delays to add iteratively
@@ -49,7 +49,7 @@ def test_set_delay(delays,expected,outputs):
   (delays2,all_delays2),
   (delays3,all_delays3),
 ])
-def test_getstats_addDelay(delays,all_delays):
+def test_jvstats_addDelay(delays,all_delays):
 
   d = Delays([],3)
 
@@ -70,7 +70,7 @@ def test_getstats_addDelay(delays,all_delays):
 
 # testing the variable width of the window
 @pytest.mark.parametrize('width',[(3),('a')])
-def test_getstats_delay_width(width):
+def test_jvstats_delay_width(width):
 
   # if width is not an integer then we should expect a TypeError exception
   if not isinstance(width,int):
@@ -85,7 +85,7 @@ def test_getstats_delay_width(width):
   (delays2,sliding_windows2),
   (delays3,sliding_windows3),
 ])
-def test_getstats_sliding_window(delays,sliding_windows):
+def test_jvstats_sliding_window(delays,sliding_windows):
 
   d = Delays([],3)
   
@@ -107,7 +107,7 @@ def test_getstats_sliding_window(delays,sliding_windows):
   ([100],[-1]),
   ([100,102,101,110,120,115],[-1,101,101,102,110,115]),
 ])
-def test_getstats_getMedian(all_delays,output):
+def test_jvstats_getMedian(all_delays,output):
 
   d = Delays([],3)
   d.delays=all_delays
