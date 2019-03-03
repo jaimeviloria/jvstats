@@ -1,0 +1,2 @@
+class Delays:
+  pass
