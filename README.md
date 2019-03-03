@@ -1,25 +1,19 @@
 # jvstats, a commandline tool for retrieving stats
 
-https://api.travis-ci.com/jaimeviloria/jvstats.svg
+[[https://api.travis-ci.com/jaimeviloria/jvstats.svg]]
+[![PyPI version](https://badge.fury.io/py/jvstats.svg)](https://badge.fury.io/py/jvstats)
 
-## Requirements
+## Development Requirements
 * make
 * python3
 * virtualenv
 
+## Package Requirements
+* python3
+
 ## Installation
 
-`sudo make install`
-Installs jvstats
-
-## Quickstart using Virtualenv
-
-1. `make test`
-This creates virtualenv in the Makefile directory
-
-2. `source virtualenv/bin/activate`
-
-## Quickstart using Docker
+`pip install jvstats`
 
 ## Usage: 
 
@@ -92,7 +86,11 @@ $ jvstats delays medians --filename test1.csv
 115
 ```
 
-### Testing
+## Development
+
+`make develop`
+
+## Testing
 
 `make test`
 creates the virtualenv and python binaries necessary for testing as well as running the unittests
