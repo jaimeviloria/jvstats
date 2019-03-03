@@ -6,14 +6,31 @@ import os
 
 # delays1 are the delays to add iteratively
 # consequently all_delays1, sliding_windows1 and outputs1 are the expected delays, current window and median output respectively
+
+# test for adding integers
 delays1=[100, 102, 101, 110, 120, 115]
 all_delays1=[[100],[100,102],[100,102,101], [100,102,101,110],[100,102,101,110,120], [100,102,101,110,120,115]]
 sliding_windows1=[[100],[100,102],[100, 102, 101],[102, 101, 110],[101, 110, 120],[110, 120, 115]]
 outputs1=[-1,101,101,102,110,115]
 
+# test for adding arrays
+# expected sliding window is the latest
+# however expected output is that of all the medians being calculated
+delays2=[100,[102, 101, 110, 120, 115]]
+all_delays2=[[100],[100,102,101,110,120,115]]
+sliding_windows2=[[100],[110, 120, 115]]
+outputs2=[-1,101,101,102,110,115]
+
+# test for adding strings
+delays2=[100,'a']
+all_delays2=[[100],[100]]
+sliding_windows2=[[100],[100]]
+outputs2=[-1,-1]
+
 # Testing the addition of delays
 @pytest.mark.parametrize('delays,all_delays',[
   (delays1,all_delays1),
+  (delays2,all_delays2),
 ])
 def test_getstats_addDelay(delays,all_delays):
 
@@ -30,6 +47,7 @@ def test_getstats_addDelay(delays,all_delays):
 
 @pytest.mark.parametrize('delays,sliding_windows',[
   (delays1,sliding_windows1),
+  (delays2,sliding_windows2)
 ])
 def test_getstats_sliding_window(delays,sliding_windows):
 
@@ -46,6 +64,7 @@ def test_getstats_sliding_window(delays,sliding_windows):
 
 @pytest.mark.parametrize('sliding_windows,outputs',[
   (sliding_windows1,outputs1),
+  (sliding_windows2,outputs2),
 ])
 def test_getstats_getMedian(mocker,sliding_windows,outputs):
 
