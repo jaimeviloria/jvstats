@@ -21,8 +21,9 @@ This creates virtualenv in the Makefile directory
 
 ## Usage: 
 
-Example
-`
+Example for the module
+```
+>>> from jvstats import Delays
 >>> d = Delays()
 >>> d.delays
 []
@@ -47,7 +48,47 @@ Example
 >>> d.delays=[100,102]
 >>> d.medians
 [-1, 101]
-`
+```
+
+When using the tool on commandline
+
+1. piping from stdin (in this case using a file)
+```
+$ cat test1.csv 
+100
+102
+101
+110
+120
+115
+$ cat test1.csv | jvstats delays medians
+-1
+101
+101
+102
+110
+115
+
+```
+
+2. from a file
+
+```
+$ cat test1.csv
+100
+102
+101
+110
+120
+115
+$ jvstats delays medians --filename test1.csv 
+-1
+101
+101
+102
+110
+115
+```
 
 ### Testing
 
