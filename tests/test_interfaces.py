@@ -7,10 +7,10 @@ import os
 # consequently all_delays1, sliding_windows1 and outputs1 are the expected delays, current window and median output respectively
 
 # test for adding integers
-delays1=[100, 102, 101, 110, 120, 115]
+delays1=[100,102,101,110,120,115]
 all_delays1=[[100],[100,102],[100,102,101], [100,102,101,110],[100,102,101,110,120], [100,102,101,110,120,115]]
 sliding_windows1=[[100],[100,102],[100, 102, 101],[102, 101, 110],[101, 110, 120],[110, 120, 115]]
-outputs1=[-1,101,101,102,110,115]
+outputs1=[[-1],[-1,101],[-1,101,102],[-1,101,102,110],[-1,101,102,110,115]]
 
 # test for adding arrays
 # expected sliding window is the latest
@@ -18,13 +18,13 @@ outputs1=[-1,101,101,102,110,115]
 delays2=[100,[102, 101, 110, 120, 115]]
 all_delays2=[[100],[100,102,101,110,120,115]]
 sliding_windows2=[[100],[110, 120, 115]]
-outputs2=[-1,101,101,102,110,115]
+outputs2=[[-1],[-1,101,102,110,115]]
 
 # test for adding strings
 delays3=[100,'a']
 all_delays3=[[100],[100]]
 sliding_windows3=[[100],[100]]
-outputs3=[-1,-1]
+outputs3=[[-1],None]
 
 # Test for setting delays directly
 @pytest.mark.parametrize('delays,expected,outputs',[
@@ -100,27 +100,18 @@ def test_getstats_sliding_window(delays,sliding_windows):
       with pytest.raises(TypeError):
         d.addDelay(delay)
 
-
     # check that the sliding window is as expected
     assert d.sliding_window == sliding_windows[i]
 
-@pytest.mark.parametrize('sliding_windows,outputs',[
-  (sliding_windows1,outputs1),
-  (sliding_windows2,outputs2),
-  (sliding_windows3,outputs3),
+@pytest.mark.parametrize('all_delays,output',[
+  ([100],[-1]),
+  ([100,102,101,110,120,115],[-1,101,101,102,110,115]),
 ])
-def test_getstats_getMedian(mocker,sliding_windows,outputs):
+def test_getstats_getMedian(all_delays,output):
 
   d = Delays([],3)
+  d.delays=all_delays
+  medians = d.get_Median()
 
-  # we are not interested in whether sliding_window is properly functioning
-  # only that it is of the value that we want to test
-  mocker.patch.object(Delays,'sliding_window')
-
-  # we iterate over each element in the sliding_windows to test
-  for i,sliding_window in enumerate(sliding_windows):
-    Delays.sliding_window.return_value=sliding_window
-
-    # check that the median is as expected of the given sliding window
-    assert d.get_Median() == outputs[i]
+  assert medians == output
 
