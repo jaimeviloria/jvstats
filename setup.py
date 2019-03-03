@@ -5,9 +5,6 @@ import os
 with codecs_open('README.md', encoding='utf-8') as f:
     long_description = f.read()
 
-with codecs_open('VERSION', encoding='utf-8') as f:
-    version = f.read()
-
 install_requires = ['click']
 tests_require = ['pytest','pytest-cov','pytest-console-scripts','pytest-mock']
 extras_require = {}
@@ -29,7 +26,7 @@ setup(name='jvstats',
         "jvstats": []
       },
       data_files = datafiles,
-      version=version,
+      version='0.1.2',
       description=u"",
       classifiers=[],
       keywords='',
