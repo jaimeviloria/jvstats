@@ -26,7 +26,7 @@ setup(name='jvstats',
         "jvstats": []
       },
       data_files = datafiles,
-      version='0.1.3',
+      version='0.1.4',
       python_requires='>=3.5',
       description=u"",
       classifiers=[],
