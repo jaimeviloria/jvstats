@@ -32,8 +32,8 @@ def medians(width,filename):
 
   # otherwise check if we have a stream from stdin (e.g. from a pipe)
   elif not click.get_text_stream('stdin').isatty():
-    stdin = click.get_text_stream('stdin').read()
-    delay_lines = stdin.strip().splitlines()
+    stdin = click.get_text_stream('stdin')
+    delay_lines = [line for line in stdin.readlines() if line.strip()]
 
   # check if we have any lines to check
   if delay_lines is not None:
