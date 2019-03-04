@@ -88,7 +88,17 @@ $ jvstats delays medians --filename test1.csv
 
 ## Development
 
-`make develop`
+### Build your own specific version of python to test against:
+
+The created project also contains a set of Makefiles which will build and run tests against your code. 
+
+`make`  will build you the latest version of python and then proceed for testing
+
+Or choose a specific python version to test against. 
+
+`make PYTHON_VERSION=3.6`
+
+Note that once built, you can easily swap between python versions just by executing the make command. If the python version you need was already built in the build directory, then we simply update the symlink of the virtualenv and ensure requirements.txt is installed.
 
 ## Testing
 

@@ -3,6 +3,9 @@
 ## [Unreleased]
 - statistics for average, max, min, median, standard deviation, skew
 
+## [0.1.3]
+- enforcing python3 in setup.py
+
 ## [0.1.2]
 - added travis detail and completing packaging
 
